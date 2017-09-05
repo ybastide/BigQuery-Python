@@ -548,7 +548,7 @@ class BigQueryClient(object):
             The dataset to create the table in
         table : str
             The name of the table to create
-        schema : dict
+        schema : list[dict]
             The table schema
         expiration_time : int or double, optional
             The expiry time in milliseconds since the epoch.
@@ -605,7 +605,7 @@ class BigQueryClient(object):
             The dataset to update the table in
         table : str
             The name of the table to update
-        schema : dict
+        schema : list[dict]
             Table schema
 
         Returns
@@ -653,7 +653,7 @@ class BigQueryClient(object):
             The dataset to patch the table in
         table : str
             The name of the table to patch
-        schema : dict
+        schema : list[dict]
             The table schema
 
         Returns
@@ -700,7 +700,7 @@ class BigQueryClient(object):
             The dataset to create the view in
         view : str
             The name of the view to create
-        query : dict
+        query : str
             A query that BigQuery executes when the view is referenced.
         use_legacy_sql : bool, optional
             If False, the query will use BigQuery's standard SQL
