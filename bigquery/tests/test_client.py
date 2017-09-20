@@ -614,7 +614,7 @@ class TestCheckJob(unittest.TestCase):
 
         mock_exec.return_value = {'jobComplete': False}
 
-        is_completed, total_rows = self.client.check_job(1)
+        is_completed, total_rows = self.client.check_job('1')
 
         self.assertFalse(is_completed)
         self.assertEquals(total_rows, 0)
@@ -637,7 +637,7 @@ class TestCheckJob(unittest.TestCase):
             'totalRows': '2'
         }
 
-        is_completed, total_rows = self.client.check_job(1)
+        is_completed, total_rows = self.client.check_job('1')
 
         self.assertTrue(is_completed)
         self.assertEquals(total_rows, 2)
@@ -1436,7 +1436,7 @@ class TestGetQuerySchema(unittest.TestCase):
             'schema': {'fields': 'This is our schema'}
         }
 
-        result_schema = bq.get_query_schema(job_id=123)
+        result_schema = bq.get_query_schema(job_id='123')
 
         self.assertEquals(result_schema, 'This is our schema')
 
@@ -1454,7 +1454,7 @@ class TestGetQuerySchema(unittest.TestCase):
         }
 
         self.assertRaises(client.UnfinishedQueryException, bq.get_query_schema,
-                          job_id=123)
+                          job_id='123')
 
 
 class TestGetTableSchema(unittest.TestCase):
@@ -1524,7 +1524,7 @@ class TestGetQueryRows(unittest.TestCase):
             'totalRows': 2
         }
 
-        result_rows = bq.get_query_rows(job_id=123, offset=0, limit=0)
+        result_rows = bq.get_query_rows(job_id='123', offset=0, limit=0)
 
         expected_rows = [{'foo': 'bar', 'spider': 'man'},
                          {'foo': 'abc', 'spider': 'xyz'}]
@@ -1593,7 +1593,7 @@ class TestGetQueryRows(unittest.TestCase):
 
         bq = BigQueryClient(mock.Mock(), 'project')
         get_query_mock.side_effect = [page_one_resp, page_two_resp]
-        result_rows = bq.get_query_rows(job_id=123, offset=0, limit=0)
+        result_rows = bq.get_query_rows(job_id='123', offset=0, limit=0)
 
         expected_rows = [{'first_name': 'foo', 'last_name': 'bar'},
                          {'first_name': 'abc', 'last_name': 'xyz'},
@@ -1625,7 +1625,7 @@ class TestGetQueryRows(unittest.TestCase):
         }
 
         self.assertRaises(client.UnfinishedQueryException, bq.get_query_rows,
-                          job_id=123, offset=0, limit=0)
+                          job_id='123', offset=0, limit=0)
 
 
 class TestCheckTable(unittest.TestCase):
